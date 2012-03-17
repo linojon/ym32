@@ -1,19 +1,216 @@
-Rebuild for Rails 3.2
+## ---------------
+## Rebuild for Rails 3.2
 
 $ rvm use 1.9.3
 $ rails new ym32 -T 
 
 .rvmrc
-	rvm use 1.9.2
+  rvm use 1.9.2
+  
+create db
+$ rake db:migrate
+
+## ---------------
+## git
+
+$ git init
+$ git add .
+$ commit -am "first commit"
+create repos on github
+$ git remote add origin git@github.com:linoj/ym32.git
+$ git push -u origin master
 
 
-haml and simple_form
-  Gemfile
-      gem 'haml-rails'
-      gem 'simple_form'
-      
-  config/application.rb
-      config.generators do |g|
-        g.form_builder :simple_form
-        g.template_engine :haml
+## ---------------
+## haml and simple_form
+
+Gemfile
+    gem 'haml-rails'
+    gem 'simple_form'
+    
+config/application.rb
+    config.generators do |g|
+      g.form_builder :simple_form
+      g.template_engine :haml
+    end
+
+$ bundle
+$ rails g simple_form:install
+
+$ rails g scaffold
+=> Template engine: Default: haml
+   Form builder: Default: simple_form
+  
+## ---------------
+## rspec
+
+Gemfile
+    group :test, :development do
+      gem 'ruby-debug19', :require => 'ruby-debug'
+      gem "rspec-rails"
+      gem 'rspec-instafail'
+      gem 'factory_girl_rails'
+      gem 'database_cleaner'
+      gem "capybara"
+    end
+    
+config/application.rb
+    config.generators do |g|
+      g.test_framework :rspec, :fixture => true
+      g.fixture_replacement :factory_girl, :dir => 'spec/factories'
+    end
+
+$ bundle install
+$ rails g rspec:install
+FAILS
+
+http://stackoverflow.com/questions/8087610/ruby-debug-with-ruby-1-9-3
+$ bundle config build.ruby-debug-base19 --with-ruby-include=$rvm_path/src/ruby-1.9.3-p125
+
+Gemfile
+    # official unofficial ruby-debug19 fix
+    # with the same gems as mentioned in 
+    # https://gist.github.com/1333785
+    source 'https://gems.gemfury.com/8n1rdTK8pezvcsyVmmgJ/' 
+    group :test, :development do
+      gem 'linecache19',       '>= 0.5.13'
+      gem 'ruby-debug-base19', '>= 0.11.26'
+      gem 'ruby-debug19'
+    end
+    
+$ rails g rspec:install
+$ rake spec
+=> 0 examples, 0 failures
+
+## ---------------
+## pages
+create manually
+
+routes.rb
+    match 'about' => 'pages#about'
+    root :to => 'pages#home'
+    
+$ rm public/index.html
+
+app/controllers/pages_controller.rb
+    class PagesController < ApplicationController
+      def home
+        render
       end
+      def about
+        render
+      end
+    end
+
+app/views/pages/home.html.haml
+    %h1 Home
+    %p Welcome to YahrzeitMinder.com
+    
+app/views/pages/about.html.haml
+    %h1 About
+    %p (TBD)
+    
+spec/requests/pages_spec.rb
+    require 'spec_helper'
+
+    describe "Pages", :type => :request do
+      describe "GET /" do
+        it "is on the home page" do
+          visit '/'
+          current_path.should == '/'
+        end
+      end
+      describe "GET /about" do
+        it "is on the About page" do
+          visit '/about'
+          current_path.should == '/about'
+        end
+      end
+    end
+
+$ rails s
+OK
+
+## ---------------
+## heroku
+
+Gemfile
+    gem 'heroku'
+    group :development, :test do
+      gem 'sqlite3'
+    end
+    group :production do
+      gem 'thin'
+      gem 'pg'
+    end
+    
+$ bundle install --without production
+
+$ heroku create --stack cedar
+=> Creating falling-dusk-9165... done, stack is cedar
+$ heroku apps:rename ym32
+
+for heroku to compile assets
+    edit config/application.rb
+      if defined?(Bundler)
+        # If you precompile assets before deploying to production, use this line
+        #Bundler.require(*Rails.groups(:assets => %w(development test)))
+        # If you want your assets lazily compiled in production, use this line
+        Bundler.require(:default, :assets, Rails.env)
+      end
+    and
+      # ref: http://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar
+      config.assets.initialize_on_precompile = false
+
+
+deploy
+  $ git push heroku master
+  $ heroku run rake db:migrate
+  $ heroku open
+  
+
+
+
+## ---------------
+## layout
+(without nifty)
+
+helpers/application_helper.rb
+    def title(page_title, show_title = true)
+      content_for(:title) { h(page_title.to_s) }
+      @show_title = show_title
+    end
+
+    def show_title?
+      @show_title
+    end
+    
+app/views/pages/home.html.haml
+    - title "Home"
+    
+app/views/pages/about.html.haml
+    - title "About"
+    
+spec/requests/pages_spec.rb
+  describe "GET /" do
+    it "supports js", :js => true do
+      visit root_path
+      click_link "test js"
+      page.should have_content("js works")
+    end
+    it "links to list of Yahrzeits" do
+      visit root_path
+      click_link "List of Yahrzeits"
+      current_path.should == people_path
+    end
+    
+## ---------------
+## 
+## ---------------
+## 
+## ---------------
+## 
+## ---------------
+## 
+## ---------------
+## 
