@@ -1,0 +1,19 @@
+Rebuild for Rails 3.2
+
+$ rvm use 1.9.3
+$ rails new ym32 -T 
+
+.rvmrc
+	rvm use 1.9.2
+
+
+haml and simple_form
+  Gemfile
+      gem 'haml-rails'
+      gem 'simple_form'
+      
+  config/application.rb
+      config.generators do |g|
+        g.form_builder :simple_form
+        g.template_engine :haml
+      end
