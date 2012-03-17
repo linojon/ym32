@@ -163,17 +163,18 @@ for heroku to compile assets
       config.assets.initialize_on_precompile = false
 
 
-deploy
+first deploy
+  $ git add .
+  $ git commit -am "with pages"
   $ git push heroku master
   $ heroku run rake db:migrate
   $ heroku open
   
 
-
-
 ## ---------------
 ## layout
-(without nifty)
+
+views/layouts/application.html.haml (replace .erb)
 
 helpers/application_helper.rb
     def title(page_title, show_title = true)
@@ -191,6 +192,50 @@ app/views/pages/home.html.haml
 app/views/pages/about.html.haml
     - title "About"
     
+## ---------------
+## twitter bootstrap
+(walking thru RailsCast from LESS to Sass)
+
+Gemfile
+    gem 'twitter-bootstrap-rails'
+
+$ rails g bootstrap:install
+
+edit layouts/application.html.haml
+  - add navbar
+  - containers for header,content, footer
+  - flash message with css and close button
+  
+simple_form (again)
+  $ rails g simple_form:install --bootstrap
+=>
+      Inside your views, use the 'simple_form_for' with one of the Bootstrap form
+      classes, '.form-horizontal', '.form-inline', '.form-search' or
+      '.form-vertical', as the following:
+
+        = simple_form_for(@user, :html => {:class => 'form-horizontal' }) do |form|
+
+using sass instead of less
+  Gemfile
+      gem 'bootstrap-sass'
+  rename bootstrap_and_overrides.css.less file to end in .scss
+    and edit for sass
+  application.js
+
+re-deploy
+  $ git add .
+  $ git commit -am "added twitter-bootstrap"
+  
+
+## ---------------
+## 
+## ---------------
+## 
+## ---------------
+## 
+## ---------------
+## 
+
 spec/requests/pages_spec.rb
   describe "GET /" do
     it "supports js", :js => true do
@@ -204,13 +249,3 @@ spec/requests/pages_spec.rb
       current_path.should == people_path
     end
     
-## ---------------
-## 
-## ---------------
-## 
-## ---------------
-## 
-## ---------------
-## 
-## ---------------
-## 
