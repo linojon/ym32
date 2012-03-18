@@ -1,0 +1,45 @@
+%p#notice= notice
+
+%p
+  %b Last name:
+  = @person.last_name
+%p
+  %b First name:
+  = @person.first_name
+%p
+  %b Middle name:
+  = @person.middle_name
+%p
+  %b Maden:
+  = @person.maden
+%p
+  %b Prefix:
+  = @person.prefix
+%p
+  %b Suffix:
+  = @person.suffix
+%p
+  %b Gender:
+  = @person.gender
+%p
+  %b Birth date:
+  = @person.birth_date
+%p
+  %b Death date:
+  = @person.death_date
+%p
+  %b Death hebrew date day:
+  = @person.death_hebrew_date_day
+%p
+  %b Death hebrew date month:
+  = @person.death_hebrew_date_month
+%p
+  %b Death hebrew date year:
+  = @person.death_hebrew_date_year
+%p
+  %b Death after sunset:
+  = @person.death_after_sunset
+
+= link_to 'Edit', edit_person_path(@person)
+\|
+= link_to 'Back', people_path

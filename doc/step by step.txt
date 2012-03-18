@@ -28,17 +28,12 @@ Gemfile
     gem 'haml-rails'
     gem 'simple_form'
     
-config/application.rb
-    config.generators do |g|
-      g.form_builder :simple_form
-      g.template_engine :haml
-    end
-
 $ bundle
 $ rails g simple_form:install
 
 $ rails g scaffold
 => Template engine: Default: haml
+   Fixture replacement: Default: factory_girl
    Form builder: Default: simple_form
   
 ## ---------------
@@ -54,12 +49,6 @@ Gemfile
       gem "capybara"
     end
     
-config/application.rb
-    config.generators do |g|
-      g.test_framework :rspec, :fixture => true
-      g.fixture_replacement :factory_girl, :dir => 'spec/factories'
-    end
-
 $ bundle install
 $ rails g rspec:install
 FAILS
@@ -215,6 +204,21 @@ simple_form (again)
 
         = simple_form_for(@user, :html => {:class => 'form-horizontal' }) do |form|
 
+tweaks to simple_form for bootstrap
+  https://github.com/plataformatec/simple_form/wiki/Twitter-Bootstrap-v2-and-simple_form-v2
+  config/initializers/simple_form.rb
+      config.form_class = 'simple_form form-horizontal'
+  lib/extras/simple_form_extension.rb
+      ...see wiki
+  config/application.rb
+      config.autoload_paths += %W(#{config.root}/lib/extras)
+  config/locales/simple_form.en.yml
+      ...
+  views/people/_form.html.haml
+      replace f.button :submit with
+      = f.button :wrapped, :cancel => people_path
+      
+
 using sass instead of less
   Gemfile
       gem 'bootstrap-sass'
@@ -231,7 +235,14 @@ re-deploy
   
 
 ## ---------------
-## 
+## people
+
+$ rails g scaffold person last_name first_name middle_name maden prefix suffix gender birth_date:date death_date:date death_hebrew_date_day:integer death_hebrew_date_month:integer death_hebrew_date_year:integer death_after_sunset:boolean --skip-stylesheets
+
+$ rake db:migrate
+$ rails s
+
+
 ## ---------------
 ## 
 ## ---------------

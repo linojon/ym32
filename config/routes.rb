@@ -1,5 +1,7 @@
 Ym32::Application.routes.draw do
   
+  resources :people
+
   match 'about' => 'pages#about'
   root :to => 'pages#home'
   

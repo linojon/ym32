@@ -11,6 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20120318022557) do
+
+  create_table "people", :force => true do |t|
+    t.string   "last_name"
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "maden"
+    t.string   "prefix"
+    t.string   "suffix"
+    t.string   "gender"
+    t.date     "birth_date"
+    t.date     "death_date"
+    t.integer  "death_hebrew_date_day"
+    t.integer  "death_hebrew_date_month"
+    t.integer  "death_hebrew_date_year"
+    t.boolean  "death_after_sunset"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+  end
 
 end

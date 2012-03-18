@@ -23,6 +23,7 @@ module Ym32
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
+    config.autoload_paths += %W(#{config.root}/lib/extras)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -63,13 +64,6 @@ module Ym32
     config.assets.version = '1.0'
     
     config.assets.initialize_on_precompile = false
-    
-    config.generators do |g|
-      g.form_builder :simple_form
-      g.template_engine :haml
-      g.test_framework :rspec, :fixture => true
-      g.fixture_replacement :factory_girl, :dir => 'spec/factories'
-    end
-    
+        
   end
 end
