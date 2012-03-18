@@ -34,6 +34,7 @@
     %span Next yahrzeit:
     = rdate person.next_yahrzeit_date
 
-= link_to 'Edit', edit_person_path(person)
-\|
-= link_to 'People', people_path
+  .form-actions
+    = link_to 'Edit Person', edit_person_path(person), class: 'btn btn-primary'
+    = link_to 'Delete', people_path(person), method: :delete, confirm: 'Are you sure?', class: 'btn'
+    = link_to 'People List', people_path, class: 'btn btn-success'

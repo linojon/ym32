@@ -8,6 +8,9 @@ class Person < ActiveRecord::Base
   def full_name
     [ prefix, first_name, middle_name, last_name, suffix ].join(' ')
   end
+  def last_first_name
+    [ last_name + ',', first_name, middle_name, suffix ].join(' ')
+  end
   
   composed_of :death_hebrew_date, 
               :class_name => 'Hebruby::HebrewDate', 

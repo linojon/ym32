@@ -1,33 +1,26 @@
-- title "Listing people"
+- title "People"
 
-%table#people
-  %tr
-    %th Last
-    %th First
-    %th Middle
-    %th Gender
-    %th Birth
-    %th Death
-    %th Hebrew
-    %th Yahrzeit
-    %th
-    %th
-    %th
-
-  - people.each do |person|
+%table#people.table.table-striped
+  %thead
     %tr
-      %td= person.last_name
-      %td= person.first_name
-      %td= person.middle_name[0]
-      %td= person.gender.upcase[0] if person.gender
-      %td= person.birth_date
-      %td= person.death_date
-      %td= person.death_hebrew_date.to_s(:day_month) if person.death_hebrew_date
-      %td= rdate person.next_yahrzeit_date
-      %td= link_to 'Show', person
-      %td= link_to 'Edit', edit_person_path(person)
-      %td= link_to 'Destroy', person, :confirm => 'Are you sure?', :method => :delete
+      %th Name
+      %th Gender
+      %th Birth
+      %th Death
+      %th Hebrew
+      %th Next Yahrzeit
+      %th Actions
+  %tbody
+    - people.each do |person|
+      %tr
+        %td= link_to person.last_first_name, person
+        %td= person.gender
+        %td= rdate person.birth_date
+        %td= rdate person.death_date
+        %td= person.death_hebrew_date.to_s(:day_month) if person.death_hebrew_date
+        %td= rdate person.next_yahrzeit_date
+        %td
+          = link_to 'Edit', edit_person_path(person), class: 'btn btn-mini btn-primary'
+          = link_to 'Delete', person, :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-mini'
 
-%br
-
-= link_to 'New Person', new_person_path
+= link_to 'New Person', new_person_path, class: 'btn btn-primary'

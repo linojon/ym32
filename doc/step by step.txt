@@ -230,7 +230,7 @@ using sass instead of less
 
 re-deploy
   $ git add .
-  $ git commit -am "added twitter-bootstrap"
+  $ git commit -am "added twitter bootstrap"
   $ git push heroku
   
 
@@ -251,8 +251,12 @@ specs for people
   spec/support/random_date.rb
   spec/support/shared_examples.rb
       
-  etc.
-  
+etc. etc.
+
+## ---------------
+## table view
+
+temporarily restore 'twitter-bootstrap-rails' for its generator  
   
 TODO
 table view

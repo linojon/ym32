@@ -13,18 +13,23 @@ body { padding-top: 60px; }
 
 @import "bootstrap-responsive";
 
-$accent_color: #7CBFB7;
-$blue_color: #00AEEF;
+$cyan_color: #00AEEF;
+$teal_color: #7CBFB7;
 
 .navbar .brand {
-  color: #FAFFB8;
+  color: $teal_color;
+}
+
+h1 { 
+  margin-bottom: 20px;
+  color: $teal_color; 
 }
 
 #banner {
   height: 121px;
-  border-bottom: 4px solid $accent_color;
+  border-bottom: 4px solid $teal_color;
   padding: 0;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   .logo {
     float: left;
     a {
@@ -40,6 +45,7 @@ $blue_color: #00AEEF;
     }
   }
   h1 {
+    color: $cyan_color;
     font-size: 300%;
     margin: 0;
     padding: 30px 0 0 500px;
@@ -47,7 +53,7 @@ $blue_color: #00AEEF;
 }
 
 #footer {
-  border-top: 4px solid $accent_color;
+  border-top: 4px solid $teal_color;
   padding: 18px 0;
   margin-top: 20px;
   font-size: 80%;
