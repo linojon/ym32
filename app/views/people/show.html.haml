@@ -35,6 +35,12 @@
     = rdate person.next_yahrzeit_date
 
   .form-actions
-    = link_to 'Edit Person', edit_person_path(person), class: 'btn btn-primary'
-    = link_to 'Delete', people_path(person), method: :delete, confirm: 'Are you sure?', class: 'btn'
-    = link_to 'People List', people_path, class: 'btn btn-success'
+    = link_to edit_person_path(person), class: 'btn btn-primary' do
+      %i.icon-pencil.icon-white
+      Edit Person
+    = link_to people_path(person), method: :delete, confirm: 'Are you sure?', class: 'btn' do
+      %i.icon-trash
+      Delete
+    = link_to people_path, class: 'btn btn-success' do
+      %i.icon-list-alt.icon-white
+      People List

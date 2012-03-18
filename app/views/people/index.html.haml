@@ -20,7 +20,14 @@
         %td= person.death_hebrew_date.to_s(:day_month) if person.death_hebrew_date
         %td= rdate person.next_yahrzeit_date
         %td
-          = link_to 'Edit', edit_person_path(person), class: 'btn btn-mini btn-primary'
-          = link_to 'Delete', person, :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-mini'
+          = link_to edit_person_path(person), class: 'btn btn-mini btn-primary' do
+            %i.icon-pencil.icon-white
+            Edit
+          = link_to person, :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-mini' do
+            %i.icon-trash
+            Delete
+            
 
-= link_to 'New Person', new_person_path, class: 'btn btn-primary'
+= link_to new_person_path, class: 'btn btn-primary' do
+  %i.icon-plus.icon-white
+  New Person

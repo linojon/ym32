@@ -7,7 +7,8 @@
   = f.input :maiden
   = f.input :gender, collection: Person::GENDERS
   = f.input :birth_date, start_year: Date.today.year, end_year: Date.today.year-200, order: [:day, :month, :year], include_blank: true
-  = f.input :death_date, start_year: Date.today.year, end_year: Date.today.year-200, orde: [:day, :month, :year], include_blank: true
+  = f.input :death_date, start_year: Date.today.year, end_year: Date.today.year-200, order: [:day, :month, :year], include_blank: true
   = f.input :death_after_sunset
   = f.input :death_hebrew_date, as: :hebrew_date, hint: "#{'(will be calculated from Death Date if left blank)' unless person.death_hebrew_date.present?}"
-  = f.button :wrapped, :cancel => people_path
+  = f.button :wrapped, cancel: people_path
+    
