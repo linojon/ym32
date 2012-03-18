@@ -1,39 +1,39 @@
-%p#notice= notice
-
-%p
-  %b Last name:
-  = person.last_name
-%p
-  %b First name:
-  = person.first_name
-%p
-  %b Middle name:
-  = person.middle_name
-%p
-  %b Maiden:
-  = person.maiden
-%p
-  %b Prefix:
-  = person.prefix
-%p
-  %b Suffix:
-  = person.suffix
-%p
-  %b Gender:
-  = person.gender
-%p
-  %b Birth date:
-  = rdate person.birth_date
-%p
-  %b Death date:
-  = rdate person.death_date
-%p
-  %b Death (hebrew):
-  = person.death_hebrew_date.to_s
-%p
-  %b Next yahrzeit
-  = person.next_yahrzeit_date
+- title "Person Details - #{person.full_name}"
+.show_data
+  %p
+    %span Last name:
+    = person.last_name
+  %p
+    %span First name:
+    = person.first_name
+  %p
+    %span Middle name:
+    = person.middle_name
+  %p
+    %span Maiden:
+    = person.maiden
+  %p
+    %span Prefix:
+    = person.prefix
+  %p
+    %span Suffix:
+    = person.suffix
+  %p
+    %span Gender:
+    = person.gender
+  %p
+    %span Birth date:
+    = rdate person.birth_date
+  %p
+    %span Death date:
+    = rdate person.death_date
+  %p
+    %span Death (hebrew):
+    = person.death_hebrew_date.to_s
+  %p
+    %span Next yahrzeit:
+    = rdate person.next_yahrzeit_date
 
 = link_to 'Edit', edit_person_path(person)
 \|
-= link_to 'Back', people_path
+= link_to 'People', people_path

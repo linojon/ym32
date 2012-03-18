@@ -49,3 +49,17 @@ $blue_color: #00AEEF;
   padding: 18px 0;
   font-size: 80%;
 }
+
+.show_data {
+  $label_width: 150px;
+  p {
+    @include clearfix;
+  }
+  span {
+    float: left;
+    width: $label_width;
+    text-align: right;
+    margin: 2px 10px;
+    font-weight: bold;
+  }
+}
