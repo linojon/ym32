@@ -52,6 +52,10 @@ h1 {
   }
 }
 
+#content {
+  min-height: 300px;
+}
+
 #footer {
   border-top: 4px solid $teal_color;
   padding: 18px 0;
