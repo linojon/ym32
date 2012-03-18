@@ -4,7 +4,7 @@ class CreatePeople < ActiveRecord::Migration
       t.string :last_name
       t.string :first_name
       t.string :middle_name
-      t.string :maden
+      t.string :maiden
       t.string :prefix
       t.string :suffix
       t.string :gender

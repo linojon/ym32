@@ -12,6 +12,7 @@ end
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'simple_form'
+gem 'hebruby'
 
 # official unofficial ruby-debug19 fix
 # with the same gems as mentioned in 
@@ -29,6 +30,7 @@ group :test, :development do
   gem "rspec-rails"
   gem 'rspec-instafail'
   gem 'factory_girl_rails'
+  gem 'faker'
   gem 'database_cleaner'
   gem "capybara"
 end

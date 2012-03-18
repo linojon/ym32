@@ -6,7 +6,7 @@ describe "people/new" do
       :last_name => "MyString",
       :first_name => "MyString",
       :middle_name => "MyString",
-      :maden => "MyString",
+      :maiden => "MyString",
       :prefix => "MyString",
       :suffix => "MyString",
       :gender => "MyString",
@@ -25,7 +25,7 @@ describe "people/new" do
       assert_select "input#person_last_name", :name => "person[last_name]"
       assert_select "input#person_first_name", :name => "person[first_name]"
       assert_select "input#person_middle_name", :name => "person[middle_name]"
-      assert_select "input#person_maden", :name => "person[maden]"
+      assert_select "input#person_maiden", :name => "person[maiden]"
       assert_select "input#person_prefix", :name => "person[prefix]"
       assert_select "input#person_suffix", :name => "person[suffix]"
       assert_select "input#person_gender", :name => "person[gender]"

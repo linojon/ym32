@@ -237,11 +237,20 @@ re-deploy
 ## ---------------
 ## people
 
-$ rails g scaffold person last_name first_name middle_name maden prefix suffix gender birth_date:date death_date:date death_hebrew_date_day:integer death_hebrew_date_month:integer death_hebrew_date_year:integer death_after_sunset:boolean --skip-stylesheets
+$ rails g scaffold person last_name first_name middle_name maiden prefix suffix gender birth_date:date death_date:date death_hebrew_date_day:integer death_hebrew_date_month:integer death_hebrew_date_year:integer death_after_sunset:boolean --skip-stylesheets
 
 $ rake db:migrate
 $ rails s
+$ rake spec
 
+specs for people
+  Gemfile
+      gem 'faker'
+  spec/factories/people.rb
+  app/models/person.rb
+  spec/support/random_date.rb
+  spec/support/shared_examples.rb
+      
 
 ## ---------------
 ## 

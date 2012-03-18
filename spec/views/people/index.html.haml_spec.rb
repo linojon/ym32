@@ -7,7 +7,7 @@ describe "people/index" do
         :last_name => "Last Name",
         :first_name => "First Name",
         :middle_name => "Middle Name",
-        :maden => "Maden",
+        :maiden => "Maiden",
         :prefix => "Prefix",
         :suffix => "Suffix",
         :gender => "Gender",
@@ -20,7 +20,7 @@ describe "people/index" do
         :last_name => "Last Name",
         :first_name => "First Name",
         :middle_name => "Middle Name",
-        :maden => "Maden",
+        :maiden => "Maiden",
         :prefix => "Prefix",
         :suffix => "Suffix",
         :gender => "Gender",
@@ -38,7 +38,7 @@ describe "people/index" do
     assert_select "tr>td", :text => "Last Name".to_s, :count => 2
     assert_select "tr>td", :text => "First Name".to_s, :count => 2
     assert_select "tr>td", :text => "Middle Name".to_s, :count => 2
-    assert_select "tr>td", :text => "Maden".to_s, :count => 2
+    assert_select "tr>td", :text => "Maiden".to_s, :count => 2
     assert_select "tr>td", :text => "Prefix".to_s, :count => 2
     assert_select "tr>td", :text => "Suffix".to_s, :count => 2
     assert_select "tr>td", :text => "Gender".to_s, :count => 2

@@ -6,7 +6,7 @@ describe "people/show" do
       :last_name => "Last Name",
       :first_name => "First Name",
       :middle_name => "Middle Name",
-      :maden => "Maden",
+      :maiden => "Maiden",
       :prefix => "Prefix",
       :suffix => "Suffix",
       :gender => "Gender",
@@ -23,7 +23,7 @@ describe "people/show" do
     rendered.should match(/Last Name/)
     rendered.should match(/First Name/)
     rendered.should match(/Middle Name/)
-    rendered.should match(/Maden/)
+    rendered.should match(/Maiden/)
     rendered.should match(/Prefix/)
     rendered.should match(/Suffix/)
     rendered.should match(/Gender/)

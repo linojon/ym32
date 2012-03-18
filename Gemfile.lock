@@ -63,6 +63,8 @@ GEM
     factory_girl_rails (1.7.0)
       factory_girl (~> 2.6.0)
       railties (>= 3.0.0)
+    faker (1.0.1)
+      i18n (~> 0.4)
     ffi (1.0.11)
     haml (3.1.4)
     haml-rails (0.3.4)
@@ -70,6 +72,7 @@ GEM
       activesupport (~> 3.0)
       haml (~> 3.0)
       railties (~> 3.0)
+    hebruby (2.0.4)
     heroku (2.21.3)
       launchy (>= 0.3.2)
       netrc (~> 0.7.1)
@@ -191,7 +194,9 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   database_cleaner
   factory_girl_rails
+  faker
   haml-rails
+  hebruby
   heroku
   jquery-rails
   linecache19 (>= 0.5.13)
