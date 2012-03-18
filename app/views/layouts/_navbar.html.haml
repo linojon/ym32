@@ -1,0 +1,13 @@
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container-fluid
+      %a.btn.btn-navbar{ 'data-toggle' => 'collapse', 'data-target' => ".nav-collapse"}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to 'Yahrzeit Minder', '#', :class => 'brand'
+      .nav-collapse
+        %ul.nav
+          %li= link_to "People", people_path
+          %li= link_to 'Reports', '#'
+          %li= link_to 'Calculator', '#'

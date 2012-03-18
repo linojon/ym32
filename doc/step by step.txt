@@ -254,6 +254,11 @@ specs for people
   etc.
   
   
+TODO
+table view
+table sort
+authentication login authorization
+calculator
 
 
 ## ---------------
@@ -278,6 +283,9 @@ custom validations for proper name
     initializers/proper_name_validations.rb
     config/locales/en.yml
     app/assets/javascripts/rails.validations.custom.js
+
+
+
 
 
 ## ---------------

@@ -20,9 +20,11 @@ $blue_color: #00AEEF;
   color: #FAFFB8;
 }
 
-#header {
-  background: image-url("bg_header.png") bottom center no-repeat;
-  height: 131px;
+#banner {
+  height: 121px;
+  border-bottom: 4px solid $accent_color;
+  padding: 0;
+  margin-bottom: 20px;
   .logo {
     float: left;
     a {
@@ -47,6 +49,7 @@ $blue_color: #00AEEF;
 #footer {
   border-top: 4px solid $accent_color;
   padding: 18px 0;
+  margin-top: 20px;
   font-size: 80%;
 }
 

@@ -11,34 +11,13 @@
     %meta{"name" => "viewport", "content" => "width=device-width, initial-scale=1.0"}
     = yield(:head)
   %body
-    .navbar.navbar-fixed-top
-      .navbar-inner
-        .container-fluid
-          %a.btn.btn-navbar{ 'data-toggle' => 'collapse', 'data-target' => ".nav-collapse"}
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          = link_to 'Yahrzeit Minder', '#', :class => 'brand'
-          .nav-collapse
-            %ul.nav
-              %li= link_to "People", '#'
-              %li= link_to 'Reports', '#'
-              %li= link_to 'Calculator', '#'
-    #header.container-fluid
-      .logo= link_to '', root_path
-      %h1 Yahrzeit Minder
+    = render 'layouts/navbar'
+    = render 'layouts/banner'
     #content
       .container-fluid
-        - flash.each do |name, msg|
-          = content_tag :div, :class => "alert alert-#{name == :notice ? 'success' : 'error'}" do
-            = msg
-            %a.close{ "data-dismiss" => "alert" }
+        = render 'layouts/flash', flash: flash
         - if show_title?
           %h1= yield(:title)
         = yield
-    #footer
-      .container-fluid
-        .align_right
-          &copy; 
-          = link_to "Parkerhill Technology Group LLC", "http://parkerhill.com"
+    = render 'layouts/footer'
         
