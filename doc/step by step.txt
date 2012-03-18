@@ -221,10 +221,13 @@ using sass instead of less
   rename bootstrap_and_overrides.css.less file to end in .scss
     and edit for sass
   application.js
+  remove javascripts/bootstrap.js.coffee
+  
 
 re-deploy
   $ git add .
   $ git commit -am "added twitter-bootstrap"
+  $ git push heroku
   
 
 ## ---------------
