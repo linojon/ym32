@@ -251,24 +251,41 @@ specs for people
   spec/support/random_date.rb
   spec/support/shared_examples.rb
       
+  etc.
+  
+  
+
 
 ## ---------------
-## 
-## ---------------
-## 
-## ---------------
-## 
+## TODO client side validations
+(compatibility errors with simple_form 2.0 + bootstrap + client_side_validations)
+ref: https://github.com/seivan/client_side_validations-simple_form
+ref: https://github.com/rafaelfranca/simple_form-bootstrap/issues/4
 
-spec/requests/pages_spec.rb
-  describe "GET /" do
-    it "supports js", :js => true do
-      visit root_path
-      click_link "test js"
-      page.should have_content("js works")
-    end
-    it "links to list of Yahrzeits" do
-      visit root_path
-      click_link "List of Yahrzeits"
-      current_path.should == people_path
-    end
+client side validations
+    gem 'client_side_validations'
+    $ rails g client_side_validations:install
     
+    In your app/assets/javascripts/application.js file add the following:
+    //= require rails.validations
+    
+    Uncomment code in initializes/client_side_validations.rb
+    
+    rspec examples with :js => true
+
+custom validations for proper name
+    https://github.com/bcardarella/client_side_validations/wiki/Custom-Validators
+    initializers/proper_name_validations.rb
+    config/locales/en.yml
+    app/assets/javascripts/rails.validations.custom.js
+
+
+## ---------------
+## 
+## ---------------
+## 
+## ---------------
+## 
+## ---------------
+## 
+

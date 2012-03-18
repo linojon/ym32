@@ -1,20 +1,16 @@
-= simple_form_for(@person) do |f|
-  = f.error_notification
-
+= simple_form_for person, validate: true do |f|
   .form-inputs
-    = f.input :last_name
+    = f.input :prefix, collection: Person::PREFIXES
     = f.input :first_name
-    = f.input :middle_name
+    = f.input :middle_name, input_html: {size: 10}
+    = f.input :last_name
+    = f.input :suffix, input_html: {size: 5}
     = f.input :maiden
-    = f.input :prefix
-    = f.input :suffix
-    = f.input :gender
-    = f.input :birth_date
-    = f.input :death_date
-    = f.input :death_hebrew_date_day
-    = f.input :death_hebrew_date_month
-    = f.input :death_hebrew_date_year
+    = f.input :gender, collection: Person::GENDERS
+    = f.input :birth_date, start_year: Date.today.year, end_year: Date.today.year-200, order: [:day, :month, :year], include_blank: true
+    = f.input :death_date, start_year: Date.today.year, end_year: Date.today.year-200, orde: [:day, :month, :year], include_blank: true
     = f.input :death_after_sunset
+    = f.input :death_hebrew_date, as: :hebrew_date, hint: "#{'(will be calculated from Death Date if left blank)' unless person.death_hebrew_date.present?}"
 
   .form-actions
     = f.button :wrapped, :cancel => people_path

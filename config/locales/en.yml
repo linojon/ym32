@@ -3,3 +3,9 @@
 
 en:
   hello: "Hello world"
+  errors:
+    messages:
+      proper_name: "is not a proper name format"
+  date:
+    formats:
+      dmy: "%d-%b-%Y"

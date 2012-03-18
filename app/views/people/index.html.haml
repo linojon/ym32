@@ -2,38 +2,28 @@
 
 %table
   %tr
-    %th Last name
-    %th First name
-    %th Middle name
-    %th Maiden
-    %th Prefix
-    %th Suffix
+    %th Last
+    %th First
+    %th Middle
     %th Gender
-    %th Birth date
-    %th Death date
-    %th Death hebrew date day
-    %th Death hebrew date month
-    %th Death hebrew date year
-    %th Death after sunset
+    %th Birth
+    %th Death
+    %th Hebrew
+    %th Yahrzeit
     %th
     %th
     %th
 
-  - @people.each do |person|
+  - people.each do |person|
     %tr
       %td= person.last_name
       %td= person.first_name
-      %td= person.middle_name
-      %td= person.maiden
-      %td= person.prefix
-      %td= person.suffix
-      %td= person.gender
+      %td= person.middle_name[0]
+      %td= person.gender.upcase[0] if person.gender
       %td= person.birth_date
       %td= person.death_date
-      %td= person.death_hebrew_date_day
-      %td= person.death_hebrew_date_month
-      %td= person.death_hebrew_date_year
-      %td= person.death_after_sunset
+      %td= person.death_hebrew_date.to_s(:day_month) if person.death_hebrew_date
+      %td= rdate person.next_yahrzeit_date
       %td= link_to 'Show', person
       %td= link_to 'Edit', edit_person_path(person)
       %td= link_to 'Destroy', person, :confirm => 'Are you sure?', :method => :delete

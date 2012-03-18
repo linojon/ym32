@@ -2,44 +2,38 @@
 
 %p
   %b Last name:
-  = @person.last_name
+  = person.last_name
 %p
   %b First name:
-  = @person.first_name
+  = person.first_name
 %p
   %b Middle name:
-  = @person.middle_name
+  = person.middle_name
 %p
   %b Maiden:
-  = @person.maiden
+  = person.maiden
 %p
   %b Prefix:
-  = @person.prefix
+  = person.prefix
 %p
   %b Suffix:
-  = @person.suffix
+  = person.suffix
 %p
   %b Gender:
-  = @person.gender
+  = person.gender
 %p
   %b Birth date:
-  = @person.birth_date
+  = rdate person.birth_date
 %p
   %b Death date:
-  = @person.death_date
+  = rdate person.death_date
 %p
-  %b Death hebrew date day:
-  = @person.death_hebrew_date_day
+  %b Death (hebrew):
+  = person.death_hebrew_date.to_s
 %p
-  %b Death hebrew date month:
-  = @person.death_hebrew_date_month
-%p
-  %b Death hebrew date year:
-  = @person.death_hebrew_date_year
-%p
-  %b Death after sunset:
-  = @person.death_after_sunset
+  %b Next yahrzeit
+  = person.next_yahrzeit_date
 
-= link_to 'Edit', edit_person_path(@person)
+= link_to 'Edit', edit_person_path(person)
 \|
 = link_to 'Back', people_path

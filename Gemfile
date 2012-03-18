@@ -12,7 +12,12 @@ end
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'simple_form'
+#gem 'client_side_validations'
+#gem 'client_side_validations-simple_form'
+gem 'decent_exposure'
 gem 'hebruby'
+gem 'will_paginate'
+#gem 'simple_datatables' # with meta_search, jsonify, https://github.com/gryphon/simple_datatables
 
 # official unofficial ruby-debug19 fix
 # with the same gems as mentioned in 
@@ -29,13 +34,20 @@ group :test, :development do
   #gem 'ruby-debug19', :require => 'ruby-debug'
   gem "rspec-rails"
   gem 'rspec-instafail'
+  gem 'database_cleaner'
+  
+  gem "capybara"
+  gem 'capybara-webkit'
+  gem "selenium-webdriver"
+  gem 'launchy' # provides save_and_open_page
+  
   gem 'factory_girl_rails'
   gem 'faker'
-  gem 'database_cleaner'
-  gem "capybara"
 end
 
-gem 'heroku'
+group :development do
+  gem 'heroku'
+end
 
 group :production do
   gem 'thin'
