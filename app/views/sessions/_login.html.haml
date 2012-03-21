@@ -1,0 +1,11 @@
+.login_form
+  %h2 Log in to begin
+  = form_tag sessions_path, {class: 'form-horizontal'} do
+    .control-group
+      = label_tag :email, nil, class: 'control-label'
+      = text_field_tag :email, params[:email]
+    .control-group
+      = label_tag :password, nil, class: 'control-label'
+      = password_field_tag :password
+    = submit_tag "Log In", class: "btn btn-primary btn-large"
+

@@ -50,6 +50,9 @@ h1 {
     margin: 0;
     padding: 30px 0 0 500px;
   }
+  .user_info {
+    float: right;
+  }
 }
 
 #content {
@@ -74,5 +77,17 @@ h1 {
     text-align: right;
     margin: 2px 10px;
     font-weight: bold;
+  }
+}
+
+.login_form {
+  background-color: $cyan_color;
+  width: 400px;
+  border: 2px solid #888;
+  padding: 20px;
+  margin: 20px auto;
+  h2 { 
+    color: white; 
+    margin-bottom: 1em;
   }
 }

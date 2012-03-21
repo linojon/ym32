@@ -11,7 +11,7 @@
     %meta{"name" => "viewport", "content" => "width=device-width, initial-scale=1.0"}
     = yield(:head)
   %body
-    = render 'layouts/navbar'
+    = render 'layouts/navbar' if current_user
     = render 'layouts/banner'
     #content
       .container-fluid

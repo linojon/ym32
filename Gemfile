@@ -19,6 +19,10 @@ gem 'hebruby'
 gem 'will_paginate'
 #gem 'simple_datatables' # with meta_search, jsonify, https://github.com/gryphon/simple_datatables
 
+# To use ActiveModel has_secure_password
+gem 'bcrypt-ruby', '~> 3.0.0'
+
+
 # official unofficial ruby-debug19 fix
 # with the same gems as mentioned in 
 # https://gist.github.com/1333785

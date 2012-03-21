@@ -258,6 +258,36 @@ etc. etc.
 
 temporarily restore 'twitter-bootstrap-rails' for its generator  
   
+## ---------------
+## user authentication
+
+ref: http://railscasts.com/episodes/250-authentication-from-scratch-revised?view=asciicast
+Gemfile
+  # To use ActiveModel has_secure_password
+  gem 'bcrypt-ruby', '~> 3.0.0'
+  
+$ rails g scaffold user email password_digest --skip-stylesheets
+$ rake db:migrate
+user.rb
+    has_secure_password
+    attr_accessible :email, :password, :password_confirmation
+    validates_uniqueness_of :email
+    
+edit users_controller.rb
+  expose(:users) { User.all }
+  expose(:user)
+  
+edit views/users
+  @users => users
+  
+$ rails g controller sessions new
+  
+  
+/users
+e.sregen@roadrunner.com / eileen2012
+
+  
+++++++++++++++++++++++
 TODO
 table view
 table sort

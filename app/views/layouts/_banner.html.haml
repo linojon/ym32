@@ -1,3 +1,6 @@
 #banner.container-fluid
+  .user_info
+    - if current_user
+      Logged in as #{current_user.email}      
   .logo= link_to '', root_path
   %h1 Yahrzeit Minder

@@ -3,7 +3,8 @@
   Manage the details of our family and friends' yahrzeits.
 -# %p{style: "font-size:150%"}
 %div{style: "text-align: center"}
-  = link_to "Go to your People List", people_path, class: "btn btn-primary btn-large"
+  - if current_user
+    = link_to "Go to your People List", people_path, class: "btn btn-primary btn-large"
+  - else
+    = render "sessions/login"
 
-  
-  
