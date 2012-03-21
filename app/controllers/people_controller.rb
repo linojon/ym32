@@ -1,7 +1,9 @@
 class PeopleController < ApplicationController
+  before_filter :authorize
+  
   respond_to :html #, :json, :datatables
   
-  expose(:people) { Person.all } #{ Person.search(params[:search]).paginate(:page => (params[:page] || 1), :per_page=>params[:per_page]) }
+  expose(:people) { Person.order(:last_name, :first_name).all } #{ Person.search(params[:search]).paginate(:page => (params[:page] || 1), :per_page=>params[:per_page]) }
   expose(:person)
   
   def create
