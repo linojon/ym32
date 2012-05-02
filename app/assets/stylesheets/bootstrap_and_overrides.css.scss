@@ -1,6 +1,6 @@
 // Set the correct sprite paths
-$iconSpritePath: image-path('glyphicons-halflings.png');
-$iconWhiteSpritePath: image-path('glyphicons-halflings-white.png');
+$iconSpritePath: asset-url('glyphicons-halflings.png', image);
+$iconWhiteSpritePath: asset-url('glyphicons-halflings-white.png', image);
 
 $navbarBackground: #555;
 $navbarBackgroundHighlight: #888;
@@ -13,83 +13,5 @@ body { padding-top: 60px; }
 
 @import "bootstrap-responsive";
 
-$cyan_color: #00AEEF;
-$teal_color: #7CBFB7;
+//=========== ym.css.scss ================
 
-.navbar .brand {
-  color: $teal_color;
-}
-
-h1 { 
-  margin-bottom: 20px;
-  color: $teal_color; 
-}
-
-#banner {
-  height: 121px;
-  border-bottom: 4px solid $teal_color;
-  padding: 0;
-  margin-bottom: 30px;
-  .logo {
-    float: left;
-    a {
-      width: 372px;
-      height: 131px;
-      display: block;
-      margin-left: 20px;
-      background: image-url("bhc_logo.png") no-repeat;
-      text-indent: -3333px;
-      border: none;
-      text-decoration: none;
-      position: absolute;
-    }
-  }
-  h1 {
-    color: $cyan_color;
-    font-size: 300%;
-    margin: 0;
-    padding: 30px 0 0 500px;
-  }
-  .user_info {
-    float: right;
-    margin-right: 20px;
-    color: #06c;
-  }
-}
-
-#content {
-  min-height: 300px;
-}
-
-#footer {
-  border-top: 4px solid $teal_color;
-  padding: 18px 0;
-  margin-top: 20px;
-  font-size: 80%;
-}
-
-.show_data {
-  $label_width: 150px;
-  p {
-    @include clearfix;
-  }
-  span {
-    float: left;
-    width: $label_width;
-    text-align: right;
-    margin: 2px 10px;
-    font-weight: bold;
-  }
-}
-
-.login_form {
-  background-color: $cyan_color;
-  width: 400px;
-  border: 2px solid #888;
-  padding: 20px;
-  margin: 20px auto;
-  h2 { 
-    color: white; 
-    margin-bottom: 1em;
-  }
-}

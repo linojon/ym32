@@ -5,6 +5,8 @@ require 'proper_name_validator'
 class Person < ActiveRecord::Base
   #extend ActiveSupport::Memoizable
   
+  default_scope order(:last_name, :first_name)
+  
   def full_name
     [ prefix, first_name, middle_name, last_name, suffix ].join(' ')
   end
@@ -54,19 +56,22 @@ class Person < ActiveRecord::Base
   before_save :set_death_dates
   
   # get next yahrzeit date on or after "from" date
+  # TODO: consider cacheing this in the record and only update if its before now
   def next_yahrzeit_date(from=Date.today)
     return unless death_date
-    # TODO: use Marlena rules
-    h_from = Hebruby::HebrewDate.new(from)
-    h_death = Hebruby::HebrewDate.new(death_date)
-    # yahrzeit date from year
-    h_yahrzeit = Hebruby::HebrewDate.new(h_death.day, h_death.month, h_from.year)
-    date = Date.jd(h_yahrzeit.jd)
-    if date < from
-      h_yahrzeit = Hebruby::HebrewDate.new(h_death.day, h_death.month, h_from.year+1)
+    @next_yahrzeit_date ||= begin
+      # TODO: use Marlena rules
+      h_from = Hebruby::HebrewDate.new(from)
+      h_death = Hebruby::HebrewDate.new(death_date)
+      # yahrzeit date from year
+      h_yahrzeit = Hebruby::HebrewDate.new(h_death.day, h_death.month, h_from.year)
       date = Date.jd(h_yahrzeit.jd)
+      if date < from
+        h_yahrzeit = Hebruby::HebrewDate.new(h_death.day, h_death.month, h_from.year+1)
+        date = Date.jd(h_yahrzeit.jd)
+      end
+      date
     end
-    date
   end
   
   ### callbacks
@@ -93,6 +98,21 @@ class Person < ActiveRecord::Base
       jd =  death_hebrew_date.jd
       jd -= 1 if death_after_sunset
       self.death_date = Date.jd(jd) 
+    end
+  end
+  
+  ########### class methods #############
+  
+  def self.sorted(sort=nil)
+    if sort == 'next_yahrzeit_date'
+      # this is not a db column
+      Person.where { death_date != nil }.all.sort_by! &:next_yahrzeit_date
+    elsif sort.present?
+      # override default order
+      Person.with_exclusive_scope { order(sort) }
+    else
+      # using default_scope
+      Person.all
     end
   end
   

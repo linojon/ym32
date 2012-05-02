@@ -1,5 +1,10 @@
 - title "People"
 
+#sort_control
+  = form_tag default_url_options, :method => :get do
+    Sort by:
+    = select_tag :sort, options_for_select([['Name', ''], ['Yahrzeit', 'next_yahrzeit_date']], params[:sort] )
+  
 %table#people.table.table-striped.table-condensed
   %thead
     %tr

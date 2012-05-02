@@ -7,7 +7,7 @@ def login(user)
 end
 
 def create_and_login_user
-  login Factory.create(:user)
+  login FactoryGirl.create(:user)
 end
 
   

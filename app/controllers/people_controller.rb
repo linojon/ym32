@@ -3,8 +3,9 @@ class PeopleController < ApplicationController
   
   respond_to :html #, :json, :datatables
   
-  expose(:people) { Person.order(params[:sort] || [:last_name, :first_name]).all } 
+  expose(:people) { Person.sorted params[:sort] }
     #{ Person.search(params[:search]).paginate(:page => (params[:page] || 1), :per_page=>params[:per_page]) }
+  
   expose(:person)
   
   def create

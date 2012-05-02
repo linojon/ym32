@@ -4,7 +4,7 @@ gem 'rails', '3.2.2'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'coffee-rails', '~> 3.2.2'
   gem 'uglifier', '>= 1.0.3'
   gem 'bootstrap-sass'
 end
@@ -16,26 +16,18 @@ gem 'simple_form'
 #gem 'client_side_validations-simple_form'
 gem 'decent_exposure'
 gem 'hebruby'
-gem 'will_paginate'
+#gem 'will_paginate'
 #gem 'simple_datatables' # with meta_search, jsonify, https://github.com/gryphon/simple_datatables
+gem 'squeel'
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
 
 
-# official unofficial ruby-debug19 fix
-# with the same gems as mentioned in 
-# https://gist.github.com/1333785
-source 'https://gems.gemfury.com/8n1rdTK8pezvcsyVmmgJ/' 
 group :test, :development do
-  gem 'linecache19',       '>= 0.5.13'
-  gem 'ruby-debug-base19', '>= 0.11.26'
-  gem 'ruby-debug19'
+  gem 'debugger'
   gem 'sqlite3'
-end
 
-group :test, :development do
-  #gem 'ruby-debug19', :require => 'ruby-debug'
   gem "rspec-rails"
   gem 'rspec-instafail'
   gem 'database_cleaner'

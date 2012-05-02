@@ -7,9 +7,9 @@ describe "People" do
   
   #------------------------
   describe "GET /people" do
-    let!(:person1) { Factory(:person, last_name: 'Linowitz', first_name: 'Bbbb', death_date: Date.today - 2.days) }
-    let!(:person2) { Factory(:person, last_name: 'Linowitz', first_name: 'Aaaa', death_date: Date.today - 1.day) }
-    let!(:person3) { Factory(:person, last_name: 'Cohen', death_date: Date.today) }
+    let!(:person1) { FactoryGirl.create(:person, last_name: 'Linowitz', first_name: 'Bbbb', death_date: Date.today - 2.days) }
+    let!(:person2) { FactoryGirl.create(:person, last_name: 'Linowitz', first_name: 'Aaaa', death_date: Date.today - 1.day) }
+    let!(:person3) { FactoryGirl.create(:person, last_name: 'Cohen', death_date: Date.today) }
     
     it "shows list of yahrzeits" do
       visit '/people'
@@ -19,24 +19,40 @@ describe "People" do
     end
     
     it "sorts by last name, first name by default" do
+      # should be 3 2 1
       visit '/people'
       page.all("table#people tbody tr")[0].should have_content('Cohen')
+      
       page.all("table#people tbody tr")[1].should have_content('Linowitz')
       page.all("table#people tbody tr")[1].should have_content('Aaaa')
+      
       page.all("table#people tbody tr")[2].should have_content('Linowitz')
       page.all("table#people tbody tr")[2].should have_content('Bbbb')
     end
     
     it "sorts by death date" do
+      # should be 1 2 3
       visit '/people?sort=death_date'
       page.all("table#people tbody tr")[0].should have_content('Bbbb')
       page.all("table#people tbody tr")[1].should have_content('Aaaa')
       page.all("table#people tbody tr")[2].should have_content('Cohen')
     end
+
+    it "sorts by next yahrzeit date" do
+      person3.stub(:next_yahrzeit_date, Date.today ) 
+      person1.stub(:next_yahrzeit_date, Date.today - 1.day ) 
+      person2.stub(:next_yahrzeit_date, Date.today - 2.day ) 
+
+      # should be 3 1 2      
+      visit '/people?sort=next_yahrzeit_date'
+      page.all("table#people tbody tr")[0].should have_content('Cohen')
+      page.all("table#people tbody tr")[1].should have_content('Bbbb')
+      page.all("table#people tbody tr")[2].should have_content('Aaaa')
+    end
     
     # describe "paginate" do
     #   before :each do
-    #     15.times { Factory(:person) }
+    #     15.times { FactoryGirl.create(:person) }
     #   end
     #   it "10 items per page" do
     #     visit '/people'
@@ -226,7 +242,7 @@ describe "People" do
   
   #------------------------
   describe "POST /people/1/update" do
-    let!(:person) { Factory(:person, :death_hebrew_date_day => 16, :death_hebrew_date_month => 'Av', :death_hebrew_date_year => 5760) }
+    let!(:person) { FactoryGirl.create(:person, :death_hebrew_date_day => 16, :death_hebrew_date_month => 'Av', :death_hebrew_date_year => 5760) }
     before :each do
       visit "/people/#{person.id}/edit"
     end
