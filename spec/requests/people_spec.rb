@@ -1,18 +1,39 @@
 require 'spec_helper'
 
 describe "People" do
+  before :each do
+    create_and_login_user
+  end
+  
   #------------------------
   describe "GET /people" do
-    let!(:person1) { Factory(:person) }
-    let!(:person2) { Factory(:person) }
+    let!(:person1) { Factory(:person, last_name: 'Linowitz', first_name: 'Bbbb', death_date: Date.today - 2.days) }
+    let!(:person2) { Factory(:person, last_name: 'Linowitz', first_name: 'Aaaa', death_date: Date.today - 1.day) }
+    let!(:person3) { Factory(:person, last_name: 'Cohen', death_date: Date.today) }
     
     it "shows list of yahrzeits" do
       visit '/people'
       page.should have_selector("table#people")
-      # page.should have_content(person1.last_name)
-      # page.should have_content(person2.last_name)
+      page.should have_content(person1.last_name)
+      page.should have_content(person2.last_name)
     end
-
+    
+    it "sorts by last name, first name by default" do
+      visit '/people'
+      page.all("table#people tbody tr")[0].should have_content('Cohen')
+      page.all("table#people tbody tr")[1].should have_content('Linowitz')
+      page.all("table#people tbody tr")[1].should have_content('Aaaa')
+      page.all("table#people tbody tr")[2].should have_content('Linowitz')
+      page.all("table#people tbody tr")[2].should have_content('Bbbb')
+    end
+    
+    it "sorts by death date" do
+      visit '/people?sort=death_date'
+      page.all("table#people tbody tr")[0].should have_content('Bbbb')
+      page.all("table#people tbody tr")[1].should have_content('Aaaa')
+      page.all("table#people tbody tr")[2].should have_content('Cohen')
+    end
+    
     # describe "paginate" do
     #   before :each do
     #     15.times { Factory(:person) }
