@@ -106,6 +106,7 @@ class Person < ActiveRecord::Base
   def self.sorted(sort=nil)
     if sort == 'next_yahrzeit_date'
       # this is not a db column
+      # NOTE: skipping nils
       Person.where { death_date != nil }.all.sort_by! &:next_yahrzeit_date
     elsif sort.present?
       # override default order
