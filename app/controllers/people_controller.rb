@@ -3,7 +3,7 @@ class PeopleController < ApplicationController
   
   respond_to :html #, :json, :datatables
   
-  expose(:people) { Person.sorted params[:sort] }
+  expose(:people) { Person.sorted( params[:sort] || 'death_hebrew_date_month, death_hebrew_date_day' ) }
     #{ Person.search(params[:search]).paginate(:page => (params[:page] || 1), :per_page=>params[:per_page]) }
   
   expose(:person)

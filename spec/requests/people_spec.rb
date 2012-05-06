@@ -7,9 +7,9 @@ describe "People" do
   
   #------------------------
   describe "GET /people" do
-    let!(:person1) { FactoryGirl.create(:person, last_name: 'Linowitz', first_name: 'Bbbb', death_date: Date.today - 2.days) }
-    let!(:person2) { FactoryGirl.create(:person, last_name: 'Linowitz', first_name: 'Aaaa', death_date: Date.today - 1.day) }
-    let!(:person3) { FactoryGirl.create(:person, last_name: 'Cohen', death_date: Date.today) }
+    let!(:person1) { FactoryGirl.create(:person, last_name: 'Linowitz', first_name: 'Bbbb', death_date: '2011-Mar-15') }
+    let!(:person2) { FactoryGirl.create(:person, last_name: 'Linowitz', first_name: 'Aaaa', death_date: '2010-Feb-1') }
+    let!(:person3) { FactoryGirl.create(:person, last_name: 'Cohen', death_date: '2011-May-1') }
     
     it "shows list of yahrzeits" do
       visit '/people'
@@ -18,9 +18,31 @@ describe "People" do
       page.should have_content(person2.last_name)
     end
     
-    it "sorts by last name, first name by default" do
+    #it "sorts by last name, first name by default"
+    
+    it "sorts by last name, first name" do
       # should be 3 2 1
-      visit '/people'
+      visit '/people?sort=last_name,first_name'
+      page.all("table#people tbody tr")[0].should have_content('Cohen')
+      
+      page.all("table#people tbody tr")[1].should have_content('Linowitz')
+      page.all("table#people tbody tr")[1].should have_content('Aaaa')
+      
+      page.all("table#people tbody tr")[2].should have_content('Linowitz')
+      page.all("table#people tbody tr")[2].should have_content('Bbbb')
+    end
+
+    it "sorts by death date" do
+      # should be 2 1 3
+      visit '/people?sort=death_date'
+      page.all("table#people tbody tr")[0].should have_content('Aaaa')
+      page.all("table#people tbody tr")[1].should have_content('Bbbb')
+      page.all("table#people tbody tr")[2].should have_content('Cohen')
+    end
+
+    it "sorts by yahrzeit" do
+      # should be 3 2 1
+      visit '/people?sort=death_hebrew_date_month,death_hebrew_date_day'
       page.all("table#people tbody tr")[0].should have_content('Cohen')
       
       page.all("table#people tbody tr")[1].should have_content('Linowitz')
@@ -30,23 +52,12 @@ describe "People" do
       page.all("table#people tbody tr")[2].should have_content('Bbbb')
     end
     
-    it "sorts by death date" do
-      # should be 1 2 3
-      visit '/people?sort=death_date'
-      page.all("table#people tbody tr")[0].should have_content('Bbbb')
-      page.all("table#people tbody tr")[1].should have_content('Aaaa')
-      page.all("table#people tbody tr")[2].should have_content('Cohen')
-    end
-
     it "sorts by next yahrzeit date" do
-      person3.stub(:next_yahrzeit_date, Date.today ) 
-      person1.stub(:next_yahrzeit_date, Date.today - 1.day ) 
-      person2.stub(:next_yahrzeit_date, Date.today - 2.day ) 
-
-      # should be 3 1 2      
+      Date.stub(:today) { Date.parse("2012-Apr-1")}
+      # should be 1 3 2     
       visit '/people?sort=next_yahrzeit_date'
-      page.all("table#people tbody tr")[0].should have_content('Cohen')
-      page.all("table#people tbody tr")[1].should have_content('Bbbb')
+      page.all("table#people tbody tr")[0].should have_content('Bbbb')
+      page.all("table#people tbody tr")[1].should have_content('Cohen')
       page.all("table#people tbody tr")[2].should have_content('Aaaa')
     end
     
@@ -235,7 +246,7 @@ describe "People" do
         select '5760', :from => 'person_death_hebrew_date_year'
         click_button 'Create Person'
         current_path.should == '/people'
-        page.should have_content("16 Av")
+        page.should have_content("Av 16")
       end
     end
   end
@@ -253,7 +264,7 @@ describe "People" do
         select '5761', :from => 'person_death_hebrew_date_year'
         click_button 'Update Person'
         current_path.should == '/people'
-        page.should have_content("17 Elul")
+        page.should have_content("Elul 17")
       end
     end
   end

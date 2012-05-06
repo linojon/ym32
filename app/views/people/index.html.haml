@@ -3,26 +3,26 @@
 #sort_control
   = form_tag default_url_options, :method => :get do
     Sort by:
-    = select_tag :sort, options_for_select([['Name', ''], ['Yahrzeit', 'next_yahrzeit_date']], params[:sort] )
+    = select_tag :sort, options_for_select([['Yahrzeit', 'death_hebrew_date_month,death_hebrew_date_day'], ['Name', 'last_name,first_name']], params[:sort] )
   
 %table#people.table.table-striped.table-condensed
   %thead
     %tr
+      %th Yharzeit
       %th Name
       %th Gender
       %th Birth
       %th Death
-      %th Hebrew
       %th Next Yahrzeit
       %th Actions
   %tbody
     - people.each do |person|
       %tr
+        %td= person.death_hebrew_date.to_s(:month_day) if person.death_hebrew_date
         %td= link_to person.last_first_name, person
         %td= person.gender
         %td= rdate person.birth_date
         %td= rdate person.death_date
-        %td= person.death_hebrew_date.to_s(:day_month) if person.death_hebrew_date
         %td= rdate person.next_yahrzeit_date
         %td
           = link_to edit_person_path(person), class: 'btn btn-mini btn-primary' do

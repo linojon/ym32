@@ -5,7 +5,7 @@ require 'proper_name_validator'
 class Person < ActiveRecord::Base
   #extend ActiveSupport::Memoizable
   
-  default_scope order(:last_name, :first_name)
+  #default_scope order(:last_name, :first_name)
   
   def full_name
     [ prefix, first_name, middle_name, last_name, suffix ].join(' ')

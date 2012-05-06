@@ -5,6 +5,8 @@ class Hebruby::HebrewDate
     case format
     when :day_month
       "#{day} #{month_name}"
+    when :month_day
+      "#{month_name} #{day}"
     else # :day_month_year
       "#{day} #{month_name} #{year}"
     end
