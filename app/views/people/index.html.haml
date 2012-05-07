@@ -8,20 +8,16 @@
 %table#people.table.table-striped.table-condensed
   %thead
     %tr
-      %th Yharzeit
+      %th Yahrzeit
       %th Name
-      %th Gender
-      %th Birth
       %th Death
-      %th Next Yahrzeit
+      %th Next Yahrzeit Anniversary
       %th Actions
   %tbody
     - people.each do |person|
       %tr
         %td= person.death_hebrew_date.to_s(:month_day) if person.death_hebrew_date
         %td= link_to person.last_first_name, person
-        %td= person.gender
-        %td= rdate person.birth_date
         %td= rdate person.death_date
         %td= rdate person.next_yahrzeit_date
         %td
