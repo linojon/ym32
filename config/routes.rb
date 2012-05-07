@@ -7,6 +7,8 @@ Ym32::Application.routes.draw do
   resources :users
   resources :people
 
+  match 'reports' => 'pages#reports'
+  match 'calculator' => 'pages#calculator'
   match 'about' => 'pages#about'
   root to: 'pages#home'
   
