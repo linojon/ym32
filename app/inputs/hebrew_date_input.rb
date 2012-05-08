@@ -6,8 +6,8 @@ class HebrewDateInput < SimpleForm::Inputs::Base
     end_year = start_year - 200
     # handle composed_of 
     [
-      @builder.select( [attribute_name,:day].join('_'), 1..30, :include_blank => true),
       @builder.select( [attribute_name,:month].join('_'), Hebruby::HebrewDate.months_for_select, :include_blank => true),
+      @builder.select( [attribute_name,:day].join('_'), 1..30, :include_blank => true),
       @builder.select( [attribute_name,:year].join('_'), start_year.downto(end_year).map {|i| i}, :include_blank => true)
     ].join(' ').html_safe
     
