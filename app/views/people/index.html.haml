@@ -16,7 +16,7 @@
   %tbody
     - people.each do |person|
       %tr
-        %td= person.death_hebrew_date.to_s(:month_day) if person.death_hebrew_date
+        %td= person.hebrew_yahrzeit_date_to_s
         %td= link_to person.last_first_name, person
         %td= rdate person.death_date
         %td= rdate person.next_yahrzeit_date

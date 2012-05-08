@@ -39,4 +39,9 @@ class Hebruby::HebrewDate
   def self.months_for_select
     1.upto(13).map {|i| [Hebruby::HebrewDate::MONTH_NAMES[i], i] }
   end
+  
+  def self.month_name(hm)
+    Hebruby::HebrewDate::MONTH_NAMES[hm]
+  end
+    
 end

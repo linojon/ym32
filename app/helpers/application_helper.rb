@@ -10,7 +10,7 @@ module ApplicationHelper
   
   # render date
   def rdate(value)
-    l value, :format => :dmy if value
+    l value, :format => :mdy if value
   end
   
 end

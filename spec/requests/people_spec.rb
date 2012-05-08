@@ -185,6 +185,8 @@ describe "People" do
          page.should have_content("can't be before birth date")
         end 
       end
+    
+      it "gives warning when both death_date and hebrew_death_date given but they dont match"
     end
     
     # JAVASCRIPT VALIDATIONS
@@ -248,24 +250,42 @@ describe "People" do
         current_path.should == '/people'
         page.should have_content("Av 16")
       end
+      it "lets you leave year blank" do
+        fill_in 'First name', :with => 'Josh'
+        fill_in 'Last name', :with => 'Cohen'
+        select '16', :from => 'person_death_hebrew_date_day'
+        select 'Av', :from => 'person_death_hebrew_date_month'
+        click_button 'Create Person'
+        current_path.should == '/people'
+        page.should have_content("Av 16")
+      end
     end
   end
   
   #------------------------
   describe "POST /people/1/update" do
-    let!(:person) { FactoryGirl.create(:person, :death_hebrew_date_day => 16, :death_hebrew_date_month => 'Av', :death_hebrew_date_year => 5760) }
+    let!(:person) { FactoryGirl.create(:person, :death_hebrew_date_day => 16, :death_hebrew_date_month => 5, :death_hebrew_date_year => 5760) }
+    # => Av 16 => Aug 17, 2000
     before :each do
       visit "/people/#{person.id}/edit"
+      #show_me
     end
     describe "death hebrew date" do
       it "can set from form" do
         select '17', :from => 'person_death_hebrew_date_day'
         select 'Elul', :from => 'person_death_hebrew_date_month'
         select '5761', :from => 'person_death_hebrew_date_year'
+        # => Sep 5, 2001
         click_button 'Update Person'
         current_path.should == '/people'
         page.should have_content("Elul 17")
       end
+      
+      #it "changing death hebrew date changes secular date" ??
+      #it "removing year clears secular date" ??
+
+      it "gives warning when both death_date and hebrew_death_date given but they dont match"
+      
     end
   end
 end

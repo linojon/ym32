@@ -9,3 +9,4 @@ en:
   date:
     formats:
       dmy: "%d-%b-%Y"
+      mdy: "%b %d, %Y"

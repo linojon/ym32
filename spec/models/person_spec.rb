@@ -63,7 +63,6 @@ describe Person do
       person.death_hebrew_date_day.should == 17
       person.death_hebrew_date_month.should == 5
       person.death_hebrew_date_year.should == 5760
-      
     end
   end
   
@@ -88,6 +87,31 @@ describe Person do
       person = FactoryGirl.create(:person, :death_date => "2000/08/17")
       Person.where(:death_hebrew_date_month => 5).should == [person]
     end
+    it "is nil given yahrzeit date (without year)" do
+      person = FactoryGirl.create(:person, :death_date => nil, :death_hebrew_date_day => 16, :death_hebrew_date_month => 5, :death_hebrew_date_year => nil)
+      person.death_hebrew_date.should be_nil
+    end
+  end
+  
+  describe "yahrzeit date (without year)" do
+    let(:person) do
+      person = FactoryGirl.build(:person, :death_date => nil, :death_hebrew_date_day => 16, :death_hebrew_date_month => 5, :death_hebrew_date_year => nil)
+      person.should be_valid
+      person.save
+      person.reload
+    end
+    
+    it "lets you save month day without year" do
+      person.death_hebrew_date_day.should == 16
+      person.death_hebrew_date_month.should == 5
+      person.death_hebrew_date_year.should be_nil
+    end
+    it "return death_hebrew_date as nil" do
+      person.death_hebrew_date.should be_nil
+    end
+    it "leaves western death date blank" do
+      person.death_date.should be_nil
+    end
   end
   
   describe "next_yahrzeit_date" do
@@ -100,6 +124,11 @@ describe Person do
       person = FactoryGirl.create(:person, :death_date => "2000/08/17")
       from = Date.parse("2010/11/6")
       person.next_yahrzeit_date(from).should == Date.parse("2011/8/16")
+    end
+    it "calculates given yahrzeit date (without year)" do
+      person = FactoryGirl.create(:person, death_date: nil, death_hebrew_date_month: 5, death_hebrew_date_day: 16, death_hebrew_date_year: nil)
+      Date.stub(:today).and_return(Date.parse("2011/11/6"))
+      person.next_yahrzeit_date.should == Date.parse("2012/8/4")
     end
   end
 end

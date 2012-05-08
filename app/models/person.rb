@@ -14,15 +14,25 @@ class Person < ActiveRecord::Base
     [ last_name + ',', first_name, middle_name, suffix ].join(' ')
   end
   
-  composed_of :death_hebrew_date, 
-              :class_name => 'Hebruby::HebrewDate', 
-              :mapping => 
-              [ # database            # HebrewDate
-                [:death_hebrew_date_day,   :day], 
-                [:death_hebrew_date_month, :month], 
-                [:death_hebrew_date_year,  :year]
-              ],
-             :allow_nil => true
+  # composed_of :death_hebrew_date, 
+  #             :class_name => 'Hebruby::HebrewDate', 
+  #             :mapping => 
+  #             [ # database            # HebrewDate
+  #               [:death_hebrew_date_day,   :day], 
+  #               [:death_hebrew_date_month, :month], 
+  #               [:death_hebrew_date_year,  :year]
+  #             ],
+  #            :allow_nil => true
+  def death_hebrew_date
+    if death_hebrew_date_year && death_hebrew_date_month && death_hebrew_date_day
+      Hebruby::HebrewDate.new(death_hebrew_date_day, death_hebrew_date_month, death_hebrew_date_year)
+    end
+  end
+  def death_hebrew_date=(hebdate)
+    self.death_hebrew_date_day = hebdate.day
+    self.death_hebrew_date_month = hebdate.month
+    self.death_hebrew_date_year = hebdate.year
+  end
     
   GENDERS = %w{ male female }
   validates :gender, :inclusion => { :in => GENDERS }, :allow_blank => true
@@ -55,19 +65,24 @@ class Person < ActiveRecord::Base
   before_save :strip_and_capitalize_names
   before_save :set_death_dates
   
+  def hebrew_yahrzeit_date_to_s
+    if death_hebrew_date_day && death_hebrew_date_month
+      "#{Hebruby::HebrewDate.month_name(death_hebrew_date_month)} #{death_hebrew_date_day}"
+    end
+  end
+  
   # get next yahrzeit date on or after "from" date
   # TODO: consider cacheing this in the record and only update if its before now
   def next_yahrzeit_date(from=Date.today)
-    return unless death_date
+    return unless death_hebrew_date_day && death_hebrew_date_month
     @next_yahrzeit_date ||= begin
       # TODO: use Marlena rules
       h_from = Hebruby::HebrewDate.new(from)
-      h_death = Hebruby::HebrewDate.new(death_date)
       # yahrzeit date from year
-      h_yahrzeit = Hebruby::HebrewDate.new(h_death.day, h_death.month, h_from.year)
+      h_yahrzeit = Hebruby::HebrewDate.new(death_hebrew_date_day, death_hebrew_date_month, h_from.year)
       date = Date.jd(h_yahrzeit.jd)
       if date < from
-        h_yahrzeit = Hebruby::HebrewDate.new(h_death.day, h_death.month, h_from.year+1)
+        h_yahrzeit = Hebruby::HebrewDate.new(death_hebrew_date_day, death_hebrew_date_month, h_from.year+1)
         date = Date.jd(h_yahrzeit.jd)
       end
       date
