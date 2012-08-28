@@ -17,7 +17,7 @@
     - people.each do |person|
       %tr
         %td= person.hebrew_yahrzeit_date_to_s
-        %td= link_to person.last_first_name, person
+        %td= link_to person.full_name, person
         %td= rdate person.death_date
         %td= rdate person.next_yahrzeit_date
         %td
